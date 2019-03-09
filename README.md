@@ -1,6 +1,7 @@
 <h1 align="center">vue-i18n-phrase</h1>
 
-<p align="center">Extract all `vue-i18n` keys from your Vue.js projects. Then, add missing keys to your [Phrase](https://phraseapp.com/) account!</p>
+Extract all `vue-i18n` keys from your Vue.js projects. Then, add missing keys to your [Phrase](https://phraseapp.com/) account!
+
 
 ## Installation
 Install `vue-i18n-phrase` globally
