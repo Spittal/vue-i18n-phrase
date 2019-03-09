@@ -1,0 +1,61 @@
+{
+  "name": "vue-i18n-extract-phrase",
+  "version": "0.0.1",
+  "description": "Upload reports from vue-i18n-extract to Phrase!",
+  "scripts": {
+    "build": "pack build",
+    "demo": "node ./pkg/dist-node/index.bin.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "tslint src/**/*"
+  },
+  "homepage": "https://github.com/pixari/vue-i18n-extract",
+  "repository": "https://github.com/Spittal/vue-i18n-extract-phrase",
+  "author": "Jamie Spittal <jamie@jamiespittal.com>",
+  "bugs": {
+    "url": "https://github.com/Spittal/vue-i18n-extract-phrase/issues"
+  },
+  "keywords": [
+    "vue i18n",
+    "vue",
+    "vue.js",
+    "plugin",
+    "internationalization",
+    "internationalization plugin",
+    "phrase",
+    "phrase app"
+  ],
+  "license": "MIT",
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node",
+        {
+          "minNodeVersion": "10"
+        }
+      ],
+      [
+        "@pika/plugin-simple-bin",
+        {
+          "bin": "vue-i18n-extract-phrase"
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "@pika/pack": "^0.3.4",
+    "@pika/plugin-build-node": "^0.3.4",
+    "@pika/plugin-simple-bin": "^0.3.13",
+    "@pika/plugin-ts-standard-pkg": "^0.3.4",
+    "axios": "^0.18.0",
+    "commander": "^2.19.0",
+    "jest": "^24.3.1",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.1",
+    "typescript": "^3.2.2",
+    "vue-i18n-extract": "0.4.9"
+  }
+}
