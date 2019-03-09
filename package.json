@@ -1,7 +1,7 @@
 {
-  "name": "vue-i18n-extract-phrase",
+  "name": "vue-i18n-phrase",
   "version": "0.1.2",
-  "description": "Upload reports from vue-i18n-extract to Phrase!",
+  "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "pack build",
     "demo": "node ./pkg/dist-node/index.bin.js",
@@ -10,11 +10,11 @@
     "lint": "tslint src/**/*",
     "dist": "pack publish"
   },
-  "homepage": "https://github.com/Spittal/vue-i18n-extract-phrase",
-  "repository": "https://github.com/Spittal/vue-i18n-extract-phrase",
+  "homepage": "https://github.com/Spittal/vue-i18n-phrase",
+  "repository": "https://github.com/Spittal/vue-i18n-phrase",
   "author": "Jamie Spittal <jamie@jamiespittal.com>",
   "bugs": {
-    "url": "https://github.com/Spittal/vue-i18n-extract-phrase/issues"
+    "url": "https://github.com/Spittal/vue-i18n-phrase/issues"
   },
   "keywords": [
     "vue i18n",
@@ -41,7 +41,7 @@
       [
         "@pika/plugin-simple-bin",
         {
-          "bin": "vue-i18n-extract-phrase"
+          "bin": "vue-i18n-phrase"
         }
       ]
     ]

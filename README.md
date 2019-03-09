@@ -1,9 +1,9 @@
-<h1 align="center">vue-i18n-extract-phrase</h1>
+<h1 align="center">vue-i18n-phrase</h1>
 
 <p align="center">Extract all `vue-i18n` keys from your Vue.js projects. Then, add missing keys to your [Phrase](https://phraseapp.com/) account!</p>
 
 ## Installation
-Install `vue-i18n-extract-phrase` globally
+Install `vue-i18n-phrase` globally
 ```sh
 yarn global add vue-18n-extract-phrase
 ```
@@ -23,7 +23,7 @@ The sync command uses [vue-i18n-extract](https://github.com/pixari/vue-i18n-extr
 
 Example:
 ```sh
-vue-i18n-extract-phrase sync -v [PATH_TO_VUE_FILES] -a [PHRASE_ACCESS_TOKEN]
+vue-i18n-phrase sync -v [PATH_TO_VUE_FILES] -a [PHRASE_ACCESS_TOKEN]
 ```
 
 Options:
