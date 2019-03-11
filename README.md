@@ -29,19 +29,21 @@ vue-i18n-phrase sync -v [PATH_TO_VUE_FILES] -a [PHRASE_ACCESS_TOKEN]
 
 Options:
 ```
--v, --vueFiles <vueFiles>                A file glob pointing to your Vue.js source files.
+-v --vueFiles <vueFiles>                A file glob pointing to your Vue.js source files.
 
--a, --accessToken <accessToken>          Phrase API access token
+-a --accessToken <accessToken>          Phrase API access token
 
--t, --tags [tags]                        In addition to the normal default tags, a comma separated list of any custom tags you would like to apply to the keys
+-p --project [project]                  Phrase project, defaults to the first project in your account
 
--m, --makeTranslation [makeTranslation]  If you would like the key path to be the default translation. If this has no value it will use your default locale in Phrase, however you can set the value of this to a locale code in order to specify a locale in which to make the translation.
+-t, --tags [tags]                       A comma separated list of any custom tags you would like to apply to the keys
 
--p, --project [project]                  Phrase project, defaults to the first project in your account
+-m --makeTranslation [makeTranslation]  If you would like the key path to be the translation in your default locale. Optionally set as a locale code to make translation in a non-default locale
 
--o --outputPath [outputPath]             Use if you want to create a json file out of your report. Will default to ./output.json
+-s --skipReport [skipReport]            Skip report generation
 
--d, --dryRun [dryRun]                    Dry run outputs a file to ./output.json with the report instead of posting missing keys to phrase
+-o --outputDir [outputDir]              Directory for report files. Will default to ./phrase-reports
+
+-d --dryRun [dryRun]                    Use if you do not want anything posted to Phrase
 
 -h, --help                              output usage information
 ```

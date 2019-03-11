@@ -1,10 +1,10 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "pack build",
-    "demo": "node --inspect ./pkg/dist-node/index.bin.js",
+    "demo": "node ./pkg/dist-node/index.bin.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "tslint src/**/*",
