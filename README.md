@@ -33,13 +33,13 @@ Options:
 
 -a, --accessToken <accessToken>          Phrase API access token
 
--t, --tags [tags]                       In addition to the normal default tags, a comma separated list of any custom tags you would like to apply to the keys
+-t, --tags [tags]                        In addition to the normal default tags, a comma separated list of any custom tags you would like to apply to the keys
 
 -m, --makeTranslation [makeTranslation]  If you would like the key path to be the default translation. If this has no value it will use your default locale in Phrase, however you can set the value of this to a locale code in order to specify a locale in which to make the translation.
 
 -p, --project [project]                  Phrase project, defaults to the first project in your account
 
--o --output [output]                    Use if you want to create a json file out of your report. Will default to ./output.json
+-o --outputPath [outputPath]             Use if you want to create a json file out of your report. Will default to ./output.json
 
 -d, --dryRun [dryRun]                    Dry run outputs a file to ./output.json with the report instead of posting missing keys to phrase
 

@@ -4,3 +4,4 @@ node_modules
 pkg
 output.json
 .log
+phrase-reports

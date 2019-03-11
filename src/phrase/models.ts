@@ -1,13 +1,3 @@
-export interface SyncCommandOptions {
-  vueFiles: string;
-  accessToken: string;
-  project?: string;
-  tags?: string;
-  makeTranslation?: string | boolean;
-  dryRun?: boolean;
-  output?: string | boolean;
-}
-
 export interface PhraseProject {
   id: string;
   name: string;
@@ -50,4 +40,11 @@ export interface PhraseKey {
   tags: string[];
   created_at: string;
   updated_at: string;
+}
+
+export interface PhraseTranslation {
+  [key: string]: {
+    message: string;
+    description: string;
+  };
 }
