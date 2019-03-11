@@ -64,7 +64,7 @@ export async function sync ({
 
     const i18nLanguage: I18NLanguage = await downloadAllTranslationsToI18NLanguage(locales, selectedProject, tags);
     const report = VueI18NExtract.extractI18NReport(parsedVueFiles, i18nLanguage);
-    VueI18NExtract.writeReportToFile(report, `${outputDir}/report.json`);
+    await VueI18NExtract.writeReportToFile(report, `${outputDir}/report.json`);
   }
 
   log(chalk.green(`\nComplete! you can view you language file and report at ${outputDir}\n`));
