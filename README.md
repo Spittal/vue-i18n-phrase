@@ -39,6 +39,8 @@ Options:
 
 -p, --project [project]                  Phrase project, defaults to the first project in your account
 
+-o --output [output]                    Use if you want to create a json file out of your report. Will default to ./output.json
+
 -d, --dryRun [dryRun]                    Dry run outputs a file to ./output.json with the report instead of posting missing keys to phrase
 
 -h, --help                              output usage information

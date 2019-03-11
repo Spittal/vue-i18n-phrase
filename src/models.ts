@@ -5,6 +5,7 @@ export interface SyncCommandOptions {
   tags?: string;
   makeTranslation?: string | boolean;
   dryRun?: boolean;
+  output?: string | boolean;
 }
 
 export interface PhraseProject {

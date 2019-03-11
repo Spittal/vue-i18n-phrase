@@ -10,6 +10,7 @@ export default async function sync ({
   tags,
   makeTranslation,
   dryRun = false,
+  output,
 }: SyncCommandOptions): Promise<void> {
   const parsedVueFiles = await VueI18NExtract.parseVueFiles(vueFiles);
 
@@ -21,18 +22,23 @@ export default async function sync ({
 
   const report: I18NReport = VueI18NExtract.extractI18NReport(parsedVueFiles, { defaultLocale: keys });
 
+  if (output) {
+    let outputPath: string = './output.json';
+    if (typeof output === 'string') {
+      outputPath = output;
+    }
+    // tslint:disable-next-line
+    console.log('\n'); // Used to make an new line for the writeReportToFile logs
+    await VueI18NExtract.writeReportToFile(report, outputPath);
+  }
+
   if (report.missingKeys.length === 0) {
     // tslint:disable-next-line
     console.log('\n🎉 You have no missing keys! Congratulations 🎉');
     return;
   }
 
-  if (dryRun) {
-    // tslint:disable-next-line
-    console.log('\n'); // Used to make an new line for the writeReportToFile logs
-    report.unusedKeys = [];
-    VueI18NExtract.writeReportToFile(report, './output.json');
-  } else {
+  if (!dryRun) {
     postKeys(report, selectedProject, tags, makeTranslation);
   }
 }
