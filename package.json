@@ -1,6 +1,6 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "pack build",
