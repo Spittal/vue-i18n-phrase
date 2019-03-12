@@ -2,6 +2,7 @@
 
 This Firebase Function creates an HTTP endpoint that allows the querying of translations based on locale and filtered by tags.
 
+Example URL:
 ```GET https://example.com/getLocaleFromPhrase?locale=en-US&tags=my-cool-tag-1,my-cool-tag-2```
 
 ## Deployment

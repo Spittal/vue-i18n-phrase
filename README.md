@@ -1,7 +1,6 @@
 <h1 align="center">vue-i18n-phrase</h1>
 
-Extract all `vue-i18n` keys from your Vue.js projects. Then, add missing keys to your [Phrase](https://phraseapp.com/) account!
-
+Extract all `vue-i18n` keys from your Vue.js projects. Then, tag and add keys to your [Phrase](https://phraseapp.com/) account!
 
 ## Installation
 Install `vue-i18n-phrase` globally
@@ -49,7 +48,7 @@ Options:
 ```
 
 ## End To End I18N Solution
-The goal of this project is to facilitate a full end to end solution for managing and fetching translations when using `vue-i18n` and Phrase. THe ideal workflow is...
+The goal of this project is to facilitate a full end to end solution for managing and fetching translations when using `vue-i18n` and Phrase. The ideal workflow is...
 
 ### 1. Write a Vue.js app using `vue-i18n` for translations.
 Adding i18n support to your Vue.js apps is easy using the very stable and mature [vue-i18n plugin](https://github.com/kazupon/vue-i18n).
@@ -60,7 +59,7 @@ This is solved by the `vue-i18n-phrase` cli tool, which is the main code in this
 ### 3. In the Vue.js app, request the translation keys for user's locale from a HTTP endpoint.
 Phrase offers a great [HTTP REST API](https://developers.phraseapp.com/api/) for it's services. But it's not _exactly_ what is needed to fit the use case. So, included in this repository is a [Firebase Function](https://firebase.google.com/docs/functions/) that abstracts the PhraseAPI and allows a GET request to be made with a locale code, and a list of tags to be added as query parameters to get a filtered list of translations. The data from the endpoint can be used by the [lazy loading features of vue-i18n](https://kazupon.github.io/vue-i18n/guide/lazy-loading.html) to asynchronously load the app translations.
 
-[Read how to deploy this cloud function here.](./firebase)
+*[Read how to deploy this cloud function here.](./firebase)*
 
 ## :copyright: License
 
