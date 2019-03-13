@@ -24,6 +24,10 @@ The sync command uses [vue-i18n-extract](https://github.com/pixari/vue-i18n-extr
 Example:
 ```sh
 vue-i18n-phrase sync -v [PATH_TO_VUE_FILES] -a [PHRASE_ACCESS_TOKEN]
+
+// or
+
+vue-i18n-phrase sync -v "./src/**/*.?(js|vue)" -a 1234567890
 ```
 
 Options:

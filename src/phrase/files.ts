@@ -16,7 +16,9 @@ export async function uploadLanguageFile (
   formData.append('file', fs.createReadStream(filePath), `${locale.code}.json`);
   formData.append('file_format', `json`);
   formData.append('locale_id', locale.id);
-  formData.append('tags', tags);
+  if (tags) {
+    formData.append('tags', tags);
+  }
   formData.append('update_translations', `${!!makeTranslation}`);
   formData.append('skip_upload_tags', 'true');
 
