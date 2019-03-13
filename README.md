@@ -5,12 +5,12 @@ Extract all `vue-i18n` keys from your Vue.js projects. Then, tag and add keys to
 ## Installation
 Install `vue-i18n-phrase` globally
 ```sh
-yarn global add vue-18n-extract-phrase
+yarn global add vue-i18n-phrase
 ```
 
 From anywhere you can now run:
 ```sh
-vue-i18n-extract sync --help
+vue-i18n-phrase sync --help
 ```
 
 ## Phrase Access Token
