@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PhraseProject, PhraseLocale } from './models';
 
 export function getSelectedLocale (locales: PhraseLocale[], makeTranslation: string | boolean): PhraseLocale {
-  if (!!makeTranslation) {
+  if (typeof makeTranslation === 'string') {
     return locales.find((locale) => locale.code === makeTranslation);
   }
   return locales.find((locale) => locale.default);
