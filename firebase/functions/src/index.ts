@@ -22,29 +22,43 @@ interface PhraseLocale {
 
 async function getLocale (localeCode: string, response: functions.Response): Promise<PhraseLocale> {
   const { data: firstData, lastPage } = await getPageOfLocales(1);
-
-  let selectedLocale: PhraseLocale | undefined = findLocale(firstData, localeCode);
+  let selectedLocale: PhraseLocale | undefined = findLocaleWithLocaleCode(firstData, localeCode);
   if (selectedLocale) return selectedLocale;
+
+  const locales = [];
+  locales.push(...firstData);
 
   for (let page = 2; page <= lastPage; page++) {
     const { data } = await getPageOfLocales(page);
 
-    selectedLocale = findLocale(data, localeCode);
+    selectedLocale = findLocaleWithLanguageCode(data, localeCode);
     if (selectedLocale) return selectedLocale;
+
+    locales.push(...data);
   }
 
-  const errorMessage = 'Did not find a locale with provided locale code';
+  // Last ditch effort to find the locale, just try to find the language code
+  const languageCode = localeCode.split('-')[0];
+  selectedLocale = findLocaleWithLanguageCode(locales, languageCode);
+  if (selectedLocale) return selectedLocale;
+
+  // if nothing is found just use default
+  selectedLocale = locales.find((locale) => locale.default);
+  if (selectedLocale) return selectedLocale;
+
+  const errorMessage = 'No locale was found in your phrase account!';
   response.status(404).send(errorMessage);
   throw errorMessage;
 }
 
-function findLocale (locales: PhraseLocale[], localeCode: string): PhraseLocale | undefined {
-  return locales.find(locale => {
-    if (localeCode) {
-      return locale.code === localeCode;
-    } else {
-      return locale.default;
-    }
+function findLocaleWithLocaleCode (locales: PhraseLocale[], localeCode: string): PhraseLocale | undefined {
+  return locales.find((locale) => locale.code === localeCode);
+}
+
+function findLocaleWithLanguageCode (locales: PhraseLocale[], languageCode: string): PhraseLocale | undefined {
+  return locales.find((locale) => {
+    const currentLanguageCode = locale.code.split('-')[0];
+    return currentLanguageCode === languageCode
   });
 }
 
