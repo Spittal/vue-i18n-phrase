@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import axios from 'axios';
 import * as cors from 'cors';
-const corsHandler = cors({origin: true});
+const corsHandler = cors({ origin: '*' });
 
 interface PhraseLocale {
   id: string;
