@@ -38,9 +38,11 @@ async function getLocale (localeCode: string, response: functions.Response): Pro
   }
 
   // Last ditch effort to find the locale, just try to find the language code
-  const languageCode = localeCode.split('-')[0];
-  selectedLocale = findLocaleWithLanguageCode(locales, languageCode);
-  if (selectedLocale) return selectedLocale;
+  if (localeCode) {
+    const languageCode = localeCode.split('-')[0];
+    selectedLocale = findLocaleWithLanguageCode(locales, languageCode);
+    if (selectedLocale) return selectedLocale;
+  }
 
   // if nothing is found just use default
   selectedLocale = locales.find((locale) => locale.default);
