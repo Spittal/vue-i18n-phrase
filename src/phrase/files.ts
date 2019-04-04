@@ -1,19 +1,32 @@
 import axios from 'axios';
-import { PhraseLocale, PhraseProject, PhraseTranslation } from './models';
-import { I18NLanguage, I18NItem } from 'vue-i18n-extract/dist-types/library/models';
+import {
+  PhraseLocale,
+  PhraseProject,
+  PhraseTranslation,
+  PhraseUpload
+} from './models';
+import {
+  I18NLanguage,
+  I18NItem
+} from 'vue-i18n-extract/dist-types/library/models';
 import FormData from 'form-data';
 import fs from 'fs';
 
-export async function uploadLanguageFile (
+export async function uploadLanguageFile(
   filePath: string,
   project: PhraseProject,
   locale: PhraseLocale,
   tags: string,
-  makeTranslation: boolean | string,
-): Promise<any> {
+  makeTranslation: boolean | string
+): Promise<PhraseUpload> {
   const formData = new FormData();
 
-  formData.append('file', fs.createReadStream(filePath), `${locale.code}.json`);
+  const date = new Date();
+  formData.append(
+    'file',
+    fs.createReadStream(filePath),
+    `${locale.code}-${tags.split(',').join('-')}.json`,
+  );
   formData.append('file_format', `json`);
   formData.append('locale_id', locale.id);
   if (tags) {
@@ -22,34 +35,56 @@ export async function uploadLanguageFile (
   formData.append('update_translations', `${!!makeTranslation}`);
   formData.append('skip_upload_tags', 'true');
 
-  const { data: uploadedFile } = await axios.post(
+  const { data: uploadedFile }: { data: PhraseUpload } = await axios.post(
     `https://api.phraseapp.com/api/v2/projects/${project.id}/uploads`,
     formData,
     {
-      headers: formData.getHeaders(),
-    },
+      headers: formData.getHeaders()
+    }
   );
 
-  return uploadedFile;
+  return confirmUploadSuccess(project, uploadedFile);
 }
 
-export async function downloadAllTranslationsToI18NLanguage (
+export async function confirmUploadSuccess(
+  project: PhraseProject,
+  upload: PhraseUpload,
+): Promise<PhraseUpload> {
+  return new Promise((resolve, reject) => {
+    function viewUploadDetails () {
+      setTimeout(async () => {
+        const { data: uploadedFile }: { data: PhraseUpload } =
+          await axios.get(`https://api.phraseapp.com/api/v2/projects/${project.id}/uploads/${upload.id}`);
+        if (uploadedFile.state === 'success') {
+          resolve(uploadedFile);
+        } else {
+          viewUploadDetails();
+        }
+      }, 500);
+    }
+    viewUploadDetails();
+  });
+}
+
+export async function downloadAllTranslationsToI18NLanguage(
   locales: PhraseLocale[],
   project: PhraseProject,
-  tags: string,
+  tags: string
 ): Promise<I18NLanguage> {
   const i18nLanguage: I18NLanguage = {};
 
   for (const locale of locales) {
     const { data }: { data: PhraseTranslation[] } = await axios.get(
-      `https://api.phraseapp.com/api/v2/projects/${project.id}/locales/${locale.id}/download`,
-      { params: { file_format: 'simple_json', tags } },
+      `https://api.phraseapp.com/api/v2/projects/${project.id}/locales/${
+        locale.id
+      }/download`,
+      { params: { file_format: 'simple_json', tags } }
     );
 
-    i18nLanguage[locale.code] = Object.keys(data).map((path) => {
+    i18nLanguage[locale.code] = Object.keys(data).map(path => {
       return {
         language: locale.code,
-        path,
+        path
       };
     }) as I18NItem[];
   }

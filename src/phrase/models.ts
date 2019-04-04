@@ -42,6 +42,23 @@ export interface PhraseKey {
   updated_at: string;
 }
 
+export interface PhraseUpload {
+  id: string;
+  filename: string;
+  format: string;
+  state: string;
+  summary: {
+    locales_created: number;
+    translation_keys_created: number;
+    translation_keys_unmentioned: number;
+    translations_created: number;
+    translations_updated: number;
+    tags_created: number;
+  };
+  created_at: string;
+  updated_at: string;
+}
+
 export interface PhraseTranslation {
   [key: string]: {
     message: string;

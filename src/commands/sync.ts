@@ -11,7 +11,8 @@ import {
   PhraseProject,
   setupAxios,
   uploadLanguageFile,
-  downloadAllTranslationsToI18NLanguage
+  downloadAllTranslationsToI18NLanguage,
+  PhraseUpload,
 } from '../phrase/index';
 import { SyncCommandOptions } from './models';
 
@@ -49,11 +50,20 @@ export async function sync ({
 
   log(`\nUploading keys to Phrase for the ${chalk.bold(selectedLocale.name)} locale.`);
   if (tags) { log(`With the tags ${chalk.bold(tags)}`); }
-  if (makeTranslation) { log(`With the keys set as the translation`); }
+  if (!!makeTranslation) { log(`With the keys set as the translation`); }
 
   if (!dryRun) {
-    await uploadLanguageFile(filePath, selectedProject, selectedLocale, tags, makeTranslation);
+    const uploadedFile: PhraseUpload =
+      await uploadLanguageFile(filePath, selectedProject, selectedLocale, tags, makeTranslation);
     log(`\nKeys successfully added!`);
+    log(`\nUpload File Summary:`);
+    log(`File Name: ${uploadedFile.filename}`);
+    log(`Keys Created: ${uploadedFile.summary.translation_keys_created}`);
+    log(`Keys Updated: ${uploadedFile.summary.translations_updated}`);
+    log(`Keys Unmentioned: ${uploadedFile.summary.translation_keys_unmentioned}`);
+    log(`Key Translations Created: ${uploadedFile.summary.translations_created}`);
+    log(`Key Translations Updated: ${uploadedFile.summary.translations_updated}`);
+    log(`Tags Created: ${uploadedFile.summary.tags_created}`);
   } else {
     log(chalk.bgRed.whiteBright(`\nPsyke! it's a dry run, nothing is changed in Phrase!`));
   }
@@ -75,7 +85,7 @@ function parsedVueFilesToJSON (
   makeTranslation: boolean | string,
 ): object {
   return parsedVueFiles.reduce((accumulator, i18nItem) => {
-    if (makeTranslation) {
+    if (!!makeTranslation) {
       accumulator[i18nItem.path] = i18nItem.path;
     } else {
       accumulator[i18nItem.path] = '';
