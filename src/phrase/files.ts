@@ -51,16 +51,25 @@ export async function confirmUploadSuccess(
   upload: PhraseUpload,
 ): Promise<PhraseUpload> {
   return new Promise((resolve, reject) => {
+    let count = 1;
     function viewUploadDetails () {
-      setTimeout(async () => {
-        const { data: uploadedFile }: { data: PhraseUpload } =
+      if (count < 13) {
+        setTimeout(async () => {
+          const { data: uploadedFile }: { data: PhraseUpload } =
           await axios.get(`https://api.phraseapp.com/api/v2/projects/${project.id}/uploads/${upload.id}`);
-        if (uploadedFile.state === 'success') {
-          resolve(uploadedFile);
-        } else {
-          viewUploadDetails();
-        }
-      }, 500);
+          if (uploadedFile.state === 'success') {
+            resolve(uploadedFile);
+          } else {
+            count++;
+            viewUploadDetails();
+          }
+        }, 500);
+      } else {
+        reject(
+          'It has taken over a minute to confirm the upload was a success. ' +
+          'Please refer to your Phrase Dashboard Web UI Uploaded Files section for more information.',
+        );
+      }
     }
     viewUploadDetails();
   });
