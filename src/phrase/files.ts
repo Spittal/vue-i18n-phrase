@@ -21,13 +21,12 @@ export async function uploadLanguageFile(
 ): Promise<PhraseUpload> {
   const formData = new FormData();
 
-  const date = new Date();
   formData.append(
     'file',
     fs.createReadStream(filePath),
     `${locale.code}-${tags.split(',').join('-')}.json`,
   );
-  formData.append('file_format', `json`);
+  formData.append('file_format', `simple_json`);
   formData.append('locale_id', locale.id);
   if (tags) {
     formData.append('tags', tags);
