@@ -6,7 +6,8 @@
     "build": "pika build",
     "demo": "node ./pkg/dist-node/index.bin.js",
     "lint": "tslint src/**/*",
-    "dist": "pika publish"
+    "dist": "pika publish",
+    "version": "npm run build"
   },
   "homepage": "https://github.com/Spittal/vue-i18n-phrase",
   "repository": "https://github.com/Spittal/vue-i18n-phrase",
