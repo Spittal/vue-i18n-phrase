@@ -1,12 +1,12 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "pika build",
     "demo": "node ./pkg/dist-node/index.bin.js",
     "lint": "tslint src/**/*",
-    "dist": "pika publish --yolo"
+    "dist": "pika publish"
   },
   "homepage": "https://github.com/Spittal/vue-i18n-phrase",
   "repository": "https://github.com/Spittal/vue-i18n-phrase",
