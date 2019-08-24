@@ -3,12 +3,10 @@
   "version": "0.3.6",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
-    "build": "pack build",
+    "build": "pika build",
     "demo": "node ./pkg/dist-node/index.bin.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
     "lint": "tslint src/**/*",
-    "dist": "pack publish --yolo"
+    "dist": "pika publish --yolo"
   },
   "homepage": "https://github.com/Spittal/vue-i18n-phrase",
   "repository": "https://github.com/Spittal/vue-i18n-phrase",
@@ -47,21 +45,19 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "chalk": "^2.4.2",
-    "commander": "^2.19.0",
-    "form-data": "^2.3.3",
-    "vue-i18n-extract": "0.4.10"
+    "commander": "^3.0.0",
+    "form-data": "^2.5.0",
+    "vue-i18n-extract": "1.0.2"
   },
   "devDependencies": {
-    "@pika/pack": "^0.3.5",
-    "@pika/plugin-build-node": "^0.3.4",
-    "@pika/plugin-simple-bin": "^0.3.13",
-    "@pika/plugin-ts-standard-pkg": "^0.3.4",
-    "@types/form-data": "^2.2.1",
-    "jest": "^24.4.0",
-    "ts-jest": "^24.0.0",
-    "tslint": "^5.13.1",
-    "typescript": "^3.2.2"
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.6.0",
+    "@pika/plugin-simple-bin": "^0.6.0",
+    "@pika/plugin-ts-standard-pkg": "^0.6.0",
+    "@types/form-data": "^2.5.0",
+    "tslint": "^5.19.0",
+    "typescript": "^3.5.3"
   }
 }

@@ -3,21 +3,21 @@ import {
   PhraseLocale,
   PhraseProject,
   PhraseTranslation,
-  PhraseUpload
+  PhraseUpload,
 } from './models';
 import {
   I18NLanguage,
-  I18NItem
+  I18NItem,
 } from 'vue-i18n-extract/dist-types/library/models';
 import FormData from 'form-data';
 import fs from 'fs';
 
-export async function uploadLanguageFile(
+export async function uploadLanguageFile (
   filePath: string,
   project: PhraseProject,
   locale: PhraseLocale,
   tags: string,
-  makeTranslation: boolean | string
+  makeTranslation: boolean | string,
 ): Promise<PhraseUpload> {
   const formData = new FormData();
 
@@ -38,14 +38,14 @@ export async function uploadLanguageFile(
     `https://api.phraseapp.com/api/v2/projects/${project.id}/uploads`,
     formData,
     {
-      headers: formData.getHeaders()
-    }
+      headers: formData.getHeaders(),
+    },
   );
 
   return confirmUploadSuccess(project, uploadedFile);
 }
 
-export async function confirmUploadSuccess(
+export async function confirmUploadSuccess (
   project: PhraseProject,
   upload: PhraseUpload,
 ): Promise<PhraseUpload> {
@@ -74,10 +74,10 @@ export async function confirmUploadSuccess(
   });
 }
 
-export async function downloadAllTranslationsToI18NLanguage(
+export async function downloadAllTranslationsToI18NLanguage (
   locales: PhraseLocale[],
   project: PhraseProject,
-  tags: string
+  tags: string,
 ): Promise<I18NLanguage> {
   const i18nLanguage: I18NLanguage = {};
 
@@ -86,13 +86,13 @@ export async function downloadAllTranslationsToI18NLanguage(
       `https://api.phraseapp.com/api/v2/projects/${project.id}/locales/${
         locale.id
       }/download`,
-      { params: { file_format: 'simple_json', tags } }
+      { params: { file_format: 'simple_json', tags } },
     );
 
-    i18nLanguage[locale.code] = Object.keys(data).map(path => {
+    i18nLanguage[locale.code] = Object.keys(data).map((path) => {
       return {
         language: locale.code,
-        path
+        path,
       };
     }) as I18NItem[];
   }

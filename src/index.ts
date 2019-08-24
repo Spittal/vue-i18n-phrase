@@ -1,5 +1,5 @@
 import program from 'commander';
-import { sync } from './commands/index';
+import { sync } from './commands/index.js';
 
 program
   .version(process.env.npm_package_version)

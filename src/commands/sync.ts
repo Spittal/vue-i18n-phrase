@@ -13,7 +13,7 @@ import {
   uploadLanguageFile,
   downloadAllTranslationsToI18NLanguage,
   PhraseUpload,
-} from '../phrase/index';
+} from '../phrase/index.js';
 import { SyncCommandOptions } from './models';
 
 // tslint:disable-next-line
