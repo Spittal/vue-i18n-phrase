@@ -2,26 +2,24 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import VueI18NExtract from 'vue-i18n-extract';
-import { I18NItem, I18NLanguage } from 'vue-i18n-extract/dist-types/library/models';
+import { I18NItem } from 'vue-i18n-extract/dist-types/library/models';
 import {
-  getLocales,
+  getLocale,
   getProject,
-  getSelectedLocale,
   setupAxios,
   uploadLanguageFile,
   downloadAllTranslationsToI18NLanguage,
+  getLocales,
 } from '../phrase';
 import {
   SyncCommandOptions,
   PhraseLocale,
-  PhraseProject,
-  PhraseUpload,
 } from '../types';
 
 function parsedVueFilesToJSON (
   parsedVueFiles: I18NItem[],
   makeTranslation: boolean | string = false,
-): object {
+): Record<string, string> {
   return parsedVueFiles.reduce((accumulator, i18nItem) => {
     if (!!makeTranslation) {
       accumulator[i18nItem.path] = i18nItem.path;
@@ -53,15 +51,15 @@ function writeLanguageJSON (languageJSON: object, outputDir: string, locale: Phr
 export async function sync ({
   vueFiles,
   accessToken,
-  project,
+  projectID,
   tags,
   makeTranslation,
   skipReport = false,
   dryRun = false,
   outputDir = './phrase-reports',
 }: SyncCommandOptions): Promise<void> {
-  const parsedVueFiles: I18NItem[] = VueI18NExtract.parseVueFiles(vueFiles);
-  const languageJSON: object = parsedVueFilesToJSON(parsedVueFiles, makeTranslation);
+  const parsedVueFiles = VueI18NExtract.parseVueFiles(vueFiles);
+  const languageJSON = parsedVueFilesToJSON(parsedVueFiles, makeTranslation);
 
   console.log(chalk.green(`\nFound ${Object.keys(languageJSON).length} unique keys in your Vue.js files`));
 
@@ -69,9 +67,9 @@ export async function sync ({
 
   console.log(chalk.bold(`\nGetting Phrase project and locale...`));
 
-  const selectedProject: PhraseProject = await getProject(project);
-  const locales: PhraseLocale[] = await getLocales(selectedProject);
-  const selectedLocale: PhraseLocale = getSelectedLocale(locales, makeTranslation);
+  const selectedProject = await getProject(projectID);
+  const locales = await getLocales(selectedProject);
+  const selectedLocale = await getLocale(selectedProject, makeTranslation, locales);
 
   console.log(`Using project: ${chalk.green(selectedProject.name)}`);
   console.log(`Using locale: ${chalk.green(selectedLocale.code)}`);
@@ -84,7 +82,7 @@ export async function sync ({
   if (!!makeTranslation) { console.log(`With the keys set as the translation`); }
 
   if (!dryRun) {
-    const uploadedFile: PhraseUpload =
+    const uploadedFile =
       await uploadLanguageFile(filePath, selectedProject, selectedLocale, tags, makeTranslation);
     console.log(`\nKeys successfully added!`);
     console.log(`\nUpload File Summary:`);
@@ -103,7 +101,7 @@ export async function sync ({
     console.log(chalk.bold(`\nGenerating a full report...`));
     if (tags) { console.log(`Getting all translations with the tags ${chalk.bold(tags)}`); }
 
-    const i18nLanguage: I18NLanguage = await downloadAllTranslationsToI18NLanguage(locales, selectedProject, tags);
+    const i18nLanguage = await downloadAllTranslationsToI18NLanguage(locales, selectedProject, tags);
     const report = VueI18NExtract.extractI18NReport(parsedVueFiles, i18nLanguage);
     await VueI18NExtract.writeReportToFile(report, `${outputDir}/report.json`);
   }

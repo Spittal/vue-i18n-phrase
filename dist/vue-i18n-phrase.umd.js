@@ -10,11 +10,12 @@
   axios = axios && Object.prototype.hasOwnProperty.call(axios, 'default') ? axios['default'] : axios;
   FormData = FormData && Object.prototype.hasOwnProperty.call(FormData, 'default') ? FormData['default'] : FormData;
 
-  async function getProject(projectName) {
+  async function getProject(projectID) {
     var {
       data: projects
     } = await axios.get('https://api.phraseapp.com/api/v2/projects');
-    var project = projectName ? projects.find(project => project.name === projectName) : projects[0];
+    console.log(projects);
+    var project = projectID ? projects.find(project => project.id === projectID) : projects[0];
     if (!project) throw new Error('Could not find project from PhraseAPI. If no project was defined as an argument, then there is no project in the selected Phrase Account');
     return project;
   }
@@ -42,21 +43,6 @@
     };
   }
 
-  function getSelectedLocale(locales, makeTranslation) {
-    if (makeTranslation === void 0) {
-      makeTranslation = false;
-    }
-
-    var locale;
-
-    if (typeof makeTranslation === 'string') {
-      locale = locales.find(locale => locale.code === makeTranslation);
-    }
-
-    locale = locales.find(locale => locale.default);
-    if (!locale) throw new Error('Locale not found, is the argument makeTranslation set correctly?');
-    return locale;
-  }
   async function getLocales(project) {
     var locales = [];
     var {
@@ -73,6 +59,25 @@
     }
 
     return locales;
+  }
+  async function getLocale(project, localeCode, locales) {
+    if (localeCode === void 0) {
+      localeCode = false;
+    }
+
+    if (!locales) {
+      locales = await getLocales(project);
+    }
+
+    var locale;
+
+    if (typeof localeCode === 'string') {
+      locale = locales.find(locale => locale.code === localeCode);
+    }
+
+    locale = locales.find(locale => locale.default);
+    if (!locale) throw new Error('Locale not found, is the argument makeTranslation set correctly?');
+    return locale;
   }
 
   async function confirmUploadSuccess(project, upload) {
@@ -202,7 +207,7 @@
     var {
       vueFiles,
       accessToken,
-      project,
+      projectID,
       tags,
       makeTranslation,
       skipReport = false,
@@ -214,9 +219,9 @@
     console.log(chalk.green("\nFound " + Object.keys(languageJSON).length + " unique keys in your Vue.js files"));
     setupAxios(accessToken);
     console.log(chalk.bold("\nGetting Phrase project and locale..."));
-    var selectedProject = await getProject(project);
+    var selectedProject = await getProject(projectID);
     var locales = await getLocales(selectedProject);
-    var selectedLocale = getSelectedLocale(locales, makeTranslation);
+    var selectedLocale = await getLocale(selectedProject, makeTranslation, locales);
     console.log("Using project: " + chalk.green(selectedProject.name));
     console.log("Using locale: " + chalk.green(selectedLocale.code));
     await makeOutputDir(outputDir);
@@ -264,7 +269,7 @@
   var program = new commander.Command();
   program.version(process.env.npm_package_version || '0.0.0').usage('sync [options]').command('sync', {
     isDefault: true
-  }).option('-v --vueFiles <vueFiles>', 'A file glob pointing to your Vue.js source files.').option('-a --accessToken <accessToken>', 'Phrase API access token').option('-p --project [project]', 'Phrase project, defaults to the first project in your account').option('-t, --tags [tags]', 'A comma separated list of any custom tags you would like to apply to the keys').option('-m --makeTranslation [makeTranslation]', 'If you would like the key path to be the translation in your default locale. Optionally set as a locale code to make translation in a non-default locale').option('-s --skipReport [skipReport]', 'Skip report generation').option('-o --outputDir [outputDir]', 'Directory for report files. Will default to ./phrase-reports').option('-d --dryRun [dryRun]', 'Use if you do not want anything posted to Phrase').action(sync);
+  }).option('-v --vueFiles <vueFiles>', 'A file glob pointing to your Vue.js source files.').option('-a --accessToken <accessToken>', 'Phrase API access token').option('-p --projectID [project]', 'Phrase Project ID, defaults to the first project in your account, projectID can be found on projects page, then hovering over project and choosing ID').option('-t, --tags [tags]', 'A comma separated list of any custom tags you would like to apply to the keys').option('-m --makeTranslation [makeTranslation]', 'If you would like the key path to be the translation in your default locale. Optionally set as a locale code to make translation in a non-default locale').option('-s --skipReport [skipReport]', 'Skip report generation').option('-o --outputDir [outputDir]', 'Directory for report files. Will default to ./phrase-reports').option('-d --dryRun [dryRun]', 'Use if you do not want anything posted to Phrase').action(sync);
   program.parse(process.argv);
 
 })));

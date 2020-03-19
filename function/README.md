@@ -8,7 +8,9 @@ This function works best when running with Google Cloud's CloudRun feature, but 
 If you don't already have one, [create a Phrase Access Token with read access](https://phraseapp.com/settings/oauth_access_tokens).
 
 ### `PHRASE_PROJECT_ID`
-The phrase project id can be found in your Phrase Dashboard -> Project Settings -> API
+The phrase project id can be found in your Phrase Dashboard -> Project Settings -> ID.
+
+If you don't set this the app will default to using the first project in your account.
 
 ## Query Parameters of the function
 

@@ -1,7 +1,7 @@
 export type SyncCommandOptions = {
   vueFiles: string;
   accessToken: string;
-  project?: string;
+  projectID?: string;
   tags?: string;
   makeTranslation?: string | boolean;
   skipReport?: boolean;

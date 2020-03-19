@@ -23,18 +23,6 @@ async function getPageOfLocales (project: PhraseProject, page: number): Promise<
   };
 }
 
-export function getSelectedLocale (locales: PhraseLocale[], makeTranslation: string | boolean = false): PhraseLocale {
-  let locale: PhraseLocale | undefined;
-  if (typeof makeTranslation === 'string') {
-    locale = locales.find((locale) => locale.code === makeTranslation);
-  }
-  locale = locales.find((locale) => locale.default);
-
-  if (!locale) throw new Error('Locale not found, is the argument makeTranslation set correctly?');
-
-  return locale;
-}
-
 export async function getLocales (project: PhraseProject): Promise<PhraseLocale[]> {
   const locales: PhraseLocale[] = [];
 
@@ -48,4 +36,21 @@ export async function getLocales (project: PhraseProject): Promise<PhraseLocale[
 
   return locales;
 }
+
+export async function getLocale (project: PhraseProject, localeCode: string | boolean = false, locales?: PhraseLocale[]): Promise<PhraseLocale> {
+  if (!locales) {
+    locales = await getLocales(project);
+  }
+
+  let locale: PhraseLocale | undefined;
+  if (typeof localeCode === 'string') {
+    locale = locales.find((locale) => locale.code === localeCode);
+  }
+  locale = locales.find((locale) => locale.default);
+
+  if (!locale) throw new Error('Locale not found, is the argument makeTranslation set correctly?');
+
+  return locale;
+}
+
 

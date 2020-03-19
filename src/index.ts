@@ -15,8 +15,8 @@ program
     'Phrase API access token'
   )
   .option(
-    '-p --project [project]',
-    'Phrase project, defaults to the first project in your account'
+    '-p --projectID [project]',
+    'Phrase Project ID, defaults to the first project in your account, projectID can be found on projects page, then hovering over project and choosing ID'
   )
   .option(
     '-t, --tags [tags]',

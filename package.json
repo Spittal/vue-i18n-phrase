@@ -1,9 +1,10 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.3.8",
+  "version": "0.5.1",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "rm -fr dist && microbundle --target node -f modern,umd",
+    "build:function": "rm -fr function/dist && microbundle --target node -f modern,umd -i function/src/index.ts -o function/dist",
     "dev": "microbundle watch",
     "demo": "node ./dist/vue-i18n-phrase.umd.js"
   },
@@ -31,10 +32,14 @@
     "axios": "^0.19.2",
     "chalk": "^3.0.0",
     "commander": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "form-data": "^3.0.0",
     "vue-i18n-extract": "^1.0.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.3",
     "@types/form-data": "^2.5.0",
     "@types/node": "^13.9.2",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
