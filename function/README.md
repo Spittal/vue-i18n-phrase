@@ -4,6 +4,10 @@ This function works best when running with Google Cloud's CloudRun feature, but 
 
 [Docker Hub](https://hub.docker.com/r/spittal/vue-i18n-phrase-function)
 
+```sh
+docker run -e PHRASE_ACCESS_TOKEN=[YOUR ACCESS TOKEN] -p 8080:8080 spittal/vue-i18n-phrase-function
+```
+
 ## Environment Variables
 
 ### `PHRASE_ACCESS_TOKEN`
