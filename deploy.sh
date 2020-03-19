@@ -17,6 +17,11 @@ function deploy(){
   docker build -t spittal/vue-i18n-phrase-function:latest -t spittal/vue-i18n-phrase-function:$PACKAGE_VERSION -f Dockerfile.function .
   docker push spittal/vue-i18n-phrase-function:latest
   docker push spittal/vue-i18n-phrase-function:$PACKAGE_VERSION
+
+  docker tag spittal/vue-i18n-phrase-function:latest gcr.io/springboardvr/vue-i18n-phrase:latest
+  docker tag spittal/vue-i18n-phrase-function:$PACKAGE_VERSION gcr.io/springboardvr/vue-i18n-phrase:$PACKAGE_VERSION
+  docker push gcr.io/springboardvr/vue-i18n-phrase:latest
+  docker push gcr.io/springboardvr/vue-i18n-phrase:$PACKAGE_VERSION
 }
 
 while true; do
