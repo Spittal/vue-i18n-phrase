@@ -6,7 +6,8 @@
     "build": "rm -fr dist && microbundle --target node -f modern,umd",
     "build:function": "rm -fr function/dist && microbundle --target node -f modern,umd -i function/src/index.ts -o function/dist",
     "dev": "microbundle watch",
-    "demo": "node ./dist/vue-i18n-phrase.umd.js"
+    "demo": "node ./dist/vue-i18n-phrase.umd.js",
+    "demo:function": "node ./function/dist/vue-i18n-phrase.umd.js"
   },
   "homepage": "https://github.com/Spittal/vue-i18n-phrase",
   "repository": "https://github.com/Spittal/vue-i18n-phrase",

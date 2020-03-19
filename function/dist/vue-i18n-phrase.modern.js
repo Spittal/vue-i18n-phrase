@@ -8,7 +8,6 @@ async function getProject(projectID) {
   var {
     data: projects
   } = await axios.get('https://api.phraseapp.com/api/v2/projects');
-  console.log(projects);
   var project = projectID ? projects.find(project => project.id === projectID) : projects[0];
   if (!project) throw new Error('Could not find project from PhraseAPI. If no project was defined as an argument, then there is no project in the selected Phrase Account');
   return project;
@@ -94,21 +93,31 @@ app.get('/getLocaleFromPhrase', async (req, res) => {
   if (process.env.PHRASE_ACCESS_TOKEN) {
     setupAxios(process.env.PHRASE_ACCESS_TOKEN);
   } else {
-    throw new Error('No PHRASE_ACCESS_TOKEN environment variable defined.');
+    var error = new Error('No PHRASE_ACCESS_TOKEN environment variable defined.');
+    res.status(500).send(JSON.stringify({
+      error: error.toString()
+    }));
+    throw error;
   }
 
   var selectedProject = await getProject(process.env.PHRASE_PROJECT_ID);
   var locale = await getLocale(selectedProject, req.query.locale);
-  var {
-    data,
-    headers
-  } = await axios.get("https://api.phraseapp.com/api/v2/projects/" + selectedProject.id + "/locales/" + locale.id + "/download", {
-    params: {
-      file_format: 'simple_json',
-      tags: req.query.tags
-    }
-  });
-  res.set('Content-Type', 'application/json').set('Link', headers.link).set('Cache-Control', 'public, max-age=3600, s-maxage=7200').send(JSON.stringify(data));
+
+  try {
+    var {
+      data,
+      headers
+    } = await axios.get("https://api.phraseapp.com/api/v2/projects/" + selectedProject.id + "/locales/" + locale.id + "/download", {
+      params: {
+        file_format: 'simple_json',
+        tags: req.query.tags
+      }
+    });
+    res.set('Content-Type', 'application/json').set('Link', headers.link).set('Cache-Control', 'public, max-age=3600, s-maxage=7200').send(JSON.stringify(data));
+  } catch (e) {
+    res.status(e.response.status || 500).send(JSON.stringify(e.response.data));
+    throw e;
+  }
 });
 app.listen(process.env.PORT || 8080, () => console.log('Phrase Locale Server Started'));
 //# sourceMappingURL=vue-i18n-phrase.modern.js.map
