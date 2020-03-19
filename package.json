@@ -3,10 +3,9 @@
   "version": "0.3.8",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
-    "build": "pika build",
-    "demo": "node ./pkg/dist-node/index.bin.js",
-    "lint": "tslint src/**/*",
-    "dist": "pika publish"
+    "build": "rm -fr dist && microbundle --target node -f modern,umd",
+    "dev": "microbundle watch",
+    "demo": "node ./dist/vue-i18n-phrase.umd.js"
   },
   "homepage": "https://github.com/Spittal/vue-i18n-phrase",
   "repository": "https://github.com/Spittal/vue-i18n-phrase",
@@ -25,39 +24,26 @@
     "phrase app"
   ],
   "license": "MIT",
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-ts-standard-pkg"
-      ],
-      [
-        "@pika/plugin-build-node",
-        {
-          "minNodeVersion": "10"
-        }
-      ],
-      [
-        "@pika/plugin-simple-bin",
-        {
-          "bin": "vue-i18n-phrase"
-        }
-      ]
-    ]
-  },
+  "source": "src/index.ts",
+  "main": "dist/vue-i18n-phrase.umd.js",
+  "module": "dist/vue-i18n-phrase.modern.js",
   "dependencies": {
-    "axios": "^0.19.0",
-    "chalk": "^2.4.2",
-    "commander": "^3.0.0",
-    "form-data": "^2.5.0",
-    "vue-i18n-extract": "1.0.2"
+    "axios": "^0.19.2",
+    "chalk": "^3.0.0",
+    "commander": "^5.0.0",
+    "form-data": "^3.0.0",
+    "vue-i18n-extract": "^1.0.3"
   },
   "devDependencies": {
-    "@pika/pack": "^0.5.0",
-    "@pika/plugin-build-node": "^0.6.0",
-    "@pika/plugin-simple-bin": "^0.6.0",
-    "@pika/plugin-ts-standard-pkg": "^0.6.0",
     "@types/form-data": "^2.5.0",
-    "tslint": "^5.19.0",
-    "typescript": "^3.5.3"
+    "@types/node": "^13.9.2",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "@yarnpkg/pnpify": "^2.0.0-rc.19",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "microbundle": "^0.12.0-next.8",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
   }
 }
