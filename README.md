@@ -3,14 +3,9 @@
 Extract all `vue-i18n` keys from your Vue.js projects. Then, tag and add keys to your [Phrase](https://phraseapp.com/) account!
 
 ## Installation
-Install `vue-i18n-phrase` globally
+use `vue-i18n-phrase` anywhere with Yarn 2
 ```sh
-yarn global add vue-i18n-phrase
-```
-
-From anywhere you can now run:
-```sh
-vue-i18n-phrase sync --help
+yarn dlx vue-i18n-phrase
 ```
 
 ## Phrase Access Token
