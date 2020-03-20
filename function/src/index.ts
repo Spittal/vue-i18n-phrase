@@ -23,7 +23,7 @@ app.get('/getLocaleFromPhrase', async (req, res) => {
   const locale = await getLocale(selectedProject, req.query.locale);
 
   try {
-    const { data, headers } = await axios.get(`https://api.phraseapp.com/api/v2/projects/${selectedProject.id}/locales/${locale.id}/download`, {
+    const { data } = await axios.get(`https://api.phraseapp.com/api/v2/projects/${selectedProject.id}/locales/${locale.id}/download`, {
       params: {
         file_format: 'simple_json', // eslint-disable-line @typescript-eslint/camelcase
         tags: req.query.tags
@@ -32,8 +32,7 @@ app.get('/getLocaleFromPhrase', async (req, res) => {
 
     res
       .set('Content-Type', 'application/json')
-      .set('Link', headers.link)
-      .set('Cache-Control', 'public, max-age=3600, s-maxage=7200')
+      .set('Cache-Control', 'max-age=3600')
       .send(JSON.stringify(data));
   } catch (e) {
     res

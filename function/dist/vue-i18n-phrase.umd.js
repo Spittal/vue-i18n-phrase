@@ -110,15 +110,14 @@
 
     try {
       var {
-        data,
-        headers
+        data
       } = await axios.get("https://api.phraseapp.com/api/v2/projects/" + selectedProject.id + "/locales/" + locale.id + "/download", {
         params: {
           file_format: 'simple_json',
           tags: req.query.tags
         }
       });
-      res.set('Content-Type', 'application/json').set('Link', headers.link).set('Cache-Control', 'public, max-age=3600, s-maxage=7200').send(JSON.stringify(data));
+      res.set('Content-Type', 'application/json').set('Cache-Control', 'max-age=3600').send(JSON.stringify(data));
     } catch (e) {
       res.status(e.response.status || 500).send(JSON.stringify(e.response.data));
       throw e;
