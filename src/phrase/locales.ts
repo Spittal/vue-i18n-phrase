@@ -45,8 +45,9 @@ export async function getLocale (project: PhraseProject, localeCode: string | bo
   let locale: PhraseLocale | undefined;
   if (typeof localeCode === 'string') {
     locale = locales.find((locale) => locale.code === localeCode);
+  } else {
+    locale = locales.find((locale) => locale.default);
   }
-  locale = locales.find((locale) => locale.default);
 
   if (!locale) throw new Error('Locale not found, is the argument makeTranslation set correctly?');
 

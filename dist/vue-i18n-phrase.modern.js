@@ -10,7 +10,6 @@ async function getProject(projectID) {
   var {
     data: projects
   } = await axios.get('https://api.phraseapp.com/api/v2/projects');
-  console.log(projects);
   var project = projectID ? projects.find(project => project.id === projectID) : projects[0];
   if (!project) throw new Error('Could not find project from PhraseAPI. If no project was defined as an argument, then there is no project in the selected Phrase Account');
   return project;
@@ -69,9 +68,10 @@ async function getLocale(project, localeCode, locales) {
 
   if (typeof localeCode === 'string') {
     locale = locales.find(locale => locale.code === localeCode);
+  } else {
+    locale = locales.find(locale => locale.default);
   }
 
-  locale = locales.find(locale => locale.default);
   if (!locale) throw new Error('Locale not found, is the argument makeTranslation set correctly?');
   return locale;
 }
