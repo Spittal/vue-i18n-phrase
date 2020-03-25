@@ -22,6 +22,9 @@ function deploy(){
   docker tag spittal/vue-i18n-phrase-function:$PACKAGE_VERSION gcr.io/springboardvr/vue-i18n-phrase:$PACKAGE_VERSION
   docker push gcr.io/springboardvr/vue-i18n-phrase:latest
   docker push gcr.io/springboardvr/vue-i18n-phrase:$PACKAGE_VERSION
+
+  git tag $PACKAGE_VERSION
+  git push origin $PACKAGE_VERSION
 }
 
 while true; do
