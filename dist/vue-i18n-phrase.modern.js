@@ -68,6 +68,13 @@ async function getLocale(project, localeCode, locales) {
 
   if (typeof localeCode === 'string') {
     locale = locales.find(locale => locale.code === localeCode);
+
+    if (!locale) {
+      locale = locales.find(locale => {
+        var language = locale.code.split('-')[0];
+        return language === localeCode;
+      });
+    }
   } else {
     locale = locales.find(locale => locale.default);
   }

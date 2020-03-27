@@ -1,6 +1,6 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "rm -fr dist && microbundle --target node -f modern,umd",
