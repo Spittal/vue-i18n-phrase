@@ -1,12 +1,12 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
-    "build": "rm -fr dist && microbundle --target node -f modern,umd",
-    "build:function": "rm -fr function/dist && microbundle --target node -f modern,umd -i function/src/index.ts -o function/dist",
+    "build": "rm -fr dist && microbundle -f modern,umd",
+    "build:function": "rm -fr function/dist && microbundle -f modern,umd -i function/src/index.ts -o function/dist",
     "dev": "microbundle watch",
-    "demo": "node ./dist/vue-i18n-phrase.umd.js",
+    "demo": "node ./bin/vue-i18n-phrase.js",
     "demo:function": "node ./function/dist/vue-i18n-phrase.umd.js"
   },
   "homepage": "https://github.com/Spittal/vue-i18n-phrase",
@@ -27,8 +27,10 @@
   ],
   "license": "MIT",
   "source": "src/index.ts",
+  "bin": "bin/vue-i18n-phrase.js",
   "main": "dist/vue-i18n-phrase.umd.js",
   "module": "dist/vue-i18n-phrase.modern.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "axios": "^0.19.2",
     "chalk": "^3.0.0",

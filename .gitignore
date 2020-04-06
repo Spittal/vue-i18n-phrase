@@ -5,3 +5,7 @@ pkg
 output.json
 .log
 phrase-reports
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins

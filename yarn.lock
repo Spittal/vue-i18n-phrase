@@ -9418,6 +9418,8 @@ typescript@^3.8.3:
     ts-jest: ^25.2.1
     typescript: ^3.8.3
     vue-i18n-extract: ^1.0.3
+  bin:
+    vue-i18n-phrase: bin/vue-i18n-phrase.js
   languageName: unknown
   linkType: soft
 
