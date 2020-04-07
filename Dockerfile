@@ -1,6 +1,6 @@
-FROM sbvr/node
+FROM node:alpine
 
-COPY ./ /home/app/
-WORKDIR /home/app/
+RUN npm install -g vue-i18n-phrase
+WORKDIR /home/app
 
-ENTRYPOINT [ "yarn", "node", "./bin/vue-i18n-phrase.js" ]
+ENTRYPOINT [ "vue-i18n-phrase" ]

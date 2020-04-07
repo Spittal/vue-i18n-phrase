@@ -9,7 +9,7 @@ PACKAGE_VERSION=$(cat package.json \
 function deploy(){
   yarn build
   yarn npm publish
-  docker build -t spittal/vue-i18n-phrase:latest -t spittal/vue-i18n-phrase:$PACKAGE_VERSION .
+  docker build -t spittal/vue-i18n-phrase:latest -t spittal/vue-i18n-phrase:$PACKAGE_VERSION - < Dockerfile
   docker push spittal/vue-i18n-phrase:latest
   docker push spittal/vue-i18n-phrase:$PACKAGE_VERSION
 
