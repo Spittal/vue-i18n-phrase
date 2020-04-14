@@ -1,8 +1,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
-import VueI18NExtract from 'vue-i18n-extract';
-import { I18NItem } from 'vue-i18n-extract/dist-types/library/models';
+import { I18NItem, parseVueFiles, extractI18NReport, writeReportToFile } from 'vue-i18n-extract';
 import {
   getLocale,
   getProject,
@@ -58,7 +57,7 @@ export async function sync ({
   dryRun = false,
   outputDir = './phrase-reports',
 }: SyncCommandOptions): Promise<void> {
-  const parsedVueFiles = VueI18NExtract.parseVueFiles(vueFiles);
+  const parsedVueFiles = parseVueFiles(vueFiles);
   const languageJSON = parsedVueFilesToJSON(parsedVueFiles, makeTranslation);
 
   console.log(chalk.green(`\nFound ${Object.keys(languageJSON).length} unique keys in your Vue.js files`));
@@ -102,8 +101,8 @@ export async function sync ({
     if (tags) { console.log(`Getting all translations with the tags ${chalk.bold(tags)}`); }
 
     const i18nLanguage = await downloadAllTranslationsToI18NLanguage(locales, selectedProject, tags);
-    const report = VueI18NExtract.extractI18NReport(parsedVueFiles, i18nLanguage);
-    await VueI18NExtract.writeReportToFile(report, `${outputDir}/report.json`);
+    const report = extractI18NReport(parsedVueFiles, i18nLanguage);
+    await writeReportToFile(report, `${outputDir}/report.json`);
   }
 
   console.log(chalk.green(`\nComplete! you can view you language file and report at ${outputDir}\n`));

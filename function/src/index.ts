@@ -1,8 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import cors from 'cors';
-import { getLocale, getProject } from '../../src/phrase';
-import { setupAxios } from '../../src/phrase/setup';
+import { getLocale, getProject, setupAxios } from '../../src';
 const corsHandler = cors({ origin: '*' });
 
 const app = express();

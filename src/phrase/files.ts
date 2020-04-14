@@ -8,7 +8,7 @@ import {
 import {
   I18NLanguage,
   I18NItem,
-} from 'vue-i18n-extract/dist-types/library/models';
+} from 'vue-i18n-extract';
 import FormData from 'form-data';
 import fs from 'fs';
 

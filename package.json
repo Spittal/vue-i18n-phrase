@@ -1,6 +1,6 @@
 {
   "name": "vue-i18n-phrase",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Extract all vue-i18n keys from your Vue.js projects. Then, add missing keys to your Phrase account!",
   "scripts": {
     "build": "rm -fr dist && microbundle -f modern,umd",
@@ -38,7 +38,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
-    "vue-i18n-extract": "^1.0.3"
+    "vue-i18n-extract": "^1.1.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
