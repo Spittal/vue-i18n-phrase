@@ -32,7 +32,7 @@
   "module": "dist/vue-i18n-phrase.modern.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^3.0.0",
     "commander": "^5.0.0",
     "cors": "^2.8.5",
